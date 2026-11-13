@@ -14,16 +14,36 @@ Built with Kotlin and Compose Desktop.
   Margin picks the provider from the repo's `origin`: GitHub pull requests through `gh`, GitLab merge requests through `glab`.
 - **Menu bar app:** the icon shows or hides the window, even over full-screen apps. Quit with ⌘Q.
 
-## Requirements
+## Install
 
-- macOS
-- JDK 17 (the build pins it with a Gradle toolchain)
-- `git`
-- Optional, for reviews: [`gh`](https://cli.github.com) for GitHub, [`glab`](https://gitlab.com/gitlab-org/cli) for GitLab
+Requires an Apple Silicon Mac.
+
+```sh
+brew install --cask erNikhilYadav/margin/margin
+```
+
+Or download the DMG from the [latest release](https://github.com/erNikhilYadav/Margin/releases/latest) and drag Margin to Applications.
+
+Margin is not notarized yet. If macOS blocks it on first launch, run:
+
+```sh
+xattr -dr com.apple.quarantine /Applications/Margin.app
+```
+
+Update with `brew upgrade --cask margin`. Remove with `brew uninstall --cask margin`.
+
+Margin uses your `git`. For reviews, also install [`gh`](https://cli.github.com) for GitHub
+or [`glab`](https://gitlab.com/gitlab-org/cli) for GitLab:
 
 ```sh
 brew install gh glab
 ```
+
+## Build requirements
+
+- macOS
+- JDK 17 (the build pins it with a Gradle toolchain)
+- `git`
 
 ## Run
 
@@ -48,17 +68,12 @@ The tests use fake `gh` and `glab` scripts, so they never touch a real server.
 
 macOS packaging rejects a version that starts with 0, so `packageVersion` in `build.gradle.kts` must stay `1.0.0` or higher.
 
-## Install with Homebrew
+## Release
 
-```sh
-brew install --cask erNikhilYadav/margin/margin
-```
-
-Margin is not notarized. If macOS blocks it on first launch, run:
-
-```sh
-xattr -dr com.apple.quarantine /Applications/Margin.app
-```
+1. Bump `packageVersion` in `build.gradle.kts`, then run `./gradlew packageDmg`.
+2. Create a GitHub release `vX.Y.Z` with the DMG attached.
+3. In [homebrew-margin](https://github.com/erNikhilYadav/homebrew-margin), set `version` and `sha256` in `Casks/margin.rb`
+   (`shasum -a 256` on the DMG), then push.
 
 ## Sign-in and privacy
 
