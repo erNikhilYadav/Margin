@@ -46,7 +46,19 @@ The tests use fake `gh` and `glab` scripts, so they never touch a real server.
 ./gradlew packageDmg            # Margin DMG in build/compose/binaries/main/dmg
 ```
 
-macOS packaging rejects a version that starts with 0. While `packageVersion` in `build.gradle.kts` is `0.0.1`, both tasks fail. Set it to `1.0.0` or higher before packaging.
+macOS packaging rejects a version that starts with 0, so `packageVersion` in `build.gradle.kts` must stay `1.0.0` or higher.
+
+## Install with Homebrew
+
+```sh
+brew install --cask erNikhilYadav/margin/margin
+```
+
+Margin is not notarized. If macOS blocks it on first launch, run:
+
+```sh
+xattr -dr com.apple.quarantine /Applications/Margin.app
+```
 
 ## Sign-in and privacy
 

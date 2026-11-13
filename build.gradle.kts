@@ -21,7 +21,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg)
             packageName = "Margin"
-            packageVersion = "0.0.1"
+            packageVersion = "1.0.0"
             macOS {
                 bundleID = "com.margin.app"
                 iconFile.set(project.file("packaging/Margin.icns"))
